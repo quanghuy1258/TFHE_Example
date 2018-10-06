@@ -6,9 +6,9 @@
 #include "Alice.h"
 
 bool generatingSavingParametersKeys(int minimum_lambda,
-                                    const std::vector<uint32_t> &seed,
-                                    const std::string &secret_key_file_name,
-                                    const std::string &cloud_key_file_name) {
+                                    std::vector<uint32_t> seed,
+                                    std::string secret_key_file_name,
+                                    std::string cloud_key_file_name) {
   try {
     // generate a keyset
     TFheGateBootstrappingParameterSet *params =
@@ -42,8 +42,18 @@ bool generatingSavingParametersKeys(int minimum_lambda,
 }
 
 bool encryptDataExportCiphertexts(int16_t plaintext1, int16_t plaintext2,
-                                  const std::string &cloud_data_file_name) {
+                                  std::string secret_key_file_name,
+                                  std::string cloud_data_file_name) {
   try {
+    // reads the cloud key from file
+    FILE *secret_key = fopen(secret_key_file_name.c_str(), "rb");
+    TFheGateBootstrappingSecretKeySet *key =
+        new_tfheGateBootstrappingSecretKeySet_fromFile(secret_key);
+    fclose(secret_key);
+
+    // if necessary, the params are inside the key
+    const TFheGateBootstrappingParameterSet *params = key->params;
+
     // generate encrypt the 16 bits of 2017
     LweSample *ciphertext1 =
         new_gate_bootstrapping_ciphertext_array(16, params);

@@ -6,12 +6,11 @@
 #include "Verif.h"
 
 bool readingDecryptingResult(
-    const std::string &secret_key_file_name = "secret.key",
-    const std::string &answer_data_file_name = "answer.data",
-    int16_t &int_answer) {
+    int16_t &int_answer, std::string secret_key_file_name,
+    std::string answer_data_file_name) {
   try {
     // reads the cloud key from file
-    FILE *secret_key = fopen("secret.key", "rb");
+    FILE *secret_key = fopen(secret_key_file_name.c_str(), "rb");
     TFheGateBootstrappingSecretKeySet *key =
         new_tfheGateBootstrappingSecretKeySet_fromFile(secret_key);
     fclose(secret_key);
@@ -23,7 +22,7 @@ bool readingDecryptingResult(
     LweSample *answer = new_gate_bootstrapping_ciphertext_array(16, params);
 
     // import the 32 ciphertexts from the answer file
-    FILE *answer_data = fopen("answer.data", "rb");
+    FILE *answer_data = fopen(answer_data_file_name.c_str(), "rb");
     for (int i = 0; i < 16; i++)
       import_gate_bootstrapping_ciphertext_fromFile(answer_data, &answer[i],
                                                     params);
@@ -45,7 +44,7 @@ bool readingDecryptingResult(
 
     return true;
   } catch (std::exception &ex) {
-    std::cerr << "[readingDecryptingResult] Exception: " << ex.what << std::endl;
+    std::cerr << "[readingDecryptingResult] Exception: " << ex.what() << std::endl;
   } catch (...) {
     std::cerr << "[readingDecryptingResult] Unknown exception" << std::endl;
   }
