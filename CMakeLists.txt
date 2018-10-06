@@ -18,5 +18,5 @@ file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 file(GLOB_RECURSE TEST_FILES ${PROJECT_SOURCE_DIR}/test/*.cpp)
 
 add_executable(mainTest ${SRC_FILES} ${TEST_FILES})
-target_link_libraries(mainTest gtest tfhe-spqlios-fma pthread)
+target_link_libraries(mainTest gtest tfhe-spqlios-avx pthread)
 add_test(AllTests mainTest)

@@ -10,6 +10,9 @@ bool generatingSavingParametersKeys(int minimum_lambda,
                                     std::string secret_key_file_name,
                                     std::string cloud_key_file_name) {
   try {
+    if (seed.size() < 1)
+      return false;
+
     // generate a keyset
     TFheGateBootstrappingParameterSet *params =
         new_default_gate_bootstrapping_parameters(minimum_lambda);

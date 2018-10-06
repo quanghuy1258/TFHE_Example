@@ -29,7 +29,6 @@ bool readingDecryptingResult(
     fclose(answer_data);
 
     // decrypt and rebuild the 16 - bit plaintext answer
-    int16_t int_answer = 0;
     for (int i = 0; i < 16; i++) {
       int ai = bootsSymDecrypt(&answer[i], key);
       int_answer |= (ai << i);
