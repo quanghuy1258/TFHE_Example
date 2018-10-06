@@ -1,3 +1,5 @@
 #!/bin/bash
 
-./bin/mainTest
+cd bin
+./mainTest
+cd ..
