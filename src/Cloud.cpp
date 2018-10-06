@@ -1,8 +1,8 @@
 #include <cstdio>
 #include <iostream>
-#include <tfhe/tfhe.h>
-#include <tfhe/tfhe_io.h>
 
+#include "tfhe/tfhe.h"
+#include "tfhe/tfhe_io.h"
 #include "Cloud.h"
 
 // elementary full comparator gate that is used to compare the i-th bit:
