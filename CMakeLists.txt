@@ -9,6 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(ENABLE_TESTS ON CACHE BOOL "Reuse googletest in tfhe repo :)))")
 add_subdirectory(tfhe/src)
+add_subdirectory(thirdparty)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/tfhe/src/include)
@@ -20,3 +21,7 @@ file(GLOB_RECURSE TEST_FILES ${PROJECT_SOURCE_DIR}/test/*.cpp)
 add_executable(mainTest ${SRC_FILES} ${TEST_FILES})
 target_link_libraries(mainTest gtest tfhe-spqlios-avx pthread)
 add_test(AllTests mainTest)
+
+aux_source_directory("${CMAKE_SOURCE_DIR}/benchmark" BENCHMARKS)
+add_executable(mainBenchmark ${BENCHMARKS})
+target_link_libraries(mainBenchmark tfhe-spqlios-avx pthread benchmark)

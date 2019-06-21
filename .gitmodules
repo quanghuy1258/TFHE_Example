@@ -1,3 +1,6 @@
 [submodule "tfhe"]
 	path = tfhe
 	url = https://github.com/tfhe/tfhe.git
+[submodule "thirdparty/benchmark"]
+	path = thirdparty/benchmark
+	url = https://github.com/google/benchmark
